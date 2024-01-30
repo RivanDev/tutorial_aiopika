@@ -12,6 +12,7 @@ async def on_message(message: AbstractIncomingMessage) -> None:
     await asyncio.sleep(5)
     print("After sleep!")
 
+
 async def main() -> None:
     connection = await connect("amqp://guest:guest@localhost/")
     async with connection:
@@ -23,4 +24,3 @@ async def main() -> None:
 
 if __name__ == '__main__':
     asyncio.run(main())
-
