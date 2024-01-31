@@ -9,6 +9,7 @@ packages = [{include = "tutorial_aiopika"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 aio-pika = "^9.4.0"
+black = "^24.1.1"
 
 
 [build-system]
