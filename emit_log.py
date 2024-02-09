@@ -11,13 +11,14 @@ async def main() -> None:
     async with connection:
         channel = await connection.channel()
 
-        logs_exchange = await channel.declare_exchange(
-            "logs",
-            ExchangeType.FANOUT,
+        topic_logs_exchange = await channel.declare_exchange(
+            "topic_logs",
+            ExchangeType.TOPIC,
         )
+        routing_key = sys.argv[1] if len(sys.argv) > 2 else "anonymous.info"
 
         message_body = (
-            b" ".join(arg.encode() for arg in sys.argv[1:]) or b"Hello World!"
+            b" ".join(arg.encode() for arg in sys.argv[2:]) or b"Hello World!"
         )
 
         message = Message(
@@ -26,7 +27,7 @@ async def main() -> None:
         )
 
         # Sending the message
-        await logs_exchange.publish(message, routing_key="info")
+        await topic_logs_exchange.publish(message, routing_key=routing_key)
 
         print(f" [x] Sent {message!r}")
 
